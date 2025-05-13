@@ -1,27 +1,47 @@
-# Prototype-Calibrated-Loss-framework
+# Prototype-Calibrated-Loss-Framework
 
-This repository contains the pytorch code for the paper:
+This repository provides the official PyTorch implementation for the paper:
 
-Prototype-Calibrated Loss for Multi-Class Cell Detection in Histological Images with Sparse Annotations
+**Prototype-Calibrated Loss for Multi-Class Cell Detection in Histological Images with Sparse Annotations**
 
 ## Introduction
-In this paper, we propose a novel training method for robust multi-class cell detection in histological images using sparsely annotated datasets. Traditional fully supervised methods require exhaustive cell annotations, which are impractical given the immense density and diversity of cells in annotated images. To address this limitation, our method leverages sparse annotations by introducing a prototype-based loss calibration framework that corrects the misclassiﬁcation of unannotated cells. Speciﬁcally, we compute a semantic energy (SE) that quantiﬁes the similarity between annotated cell features and those in unannotated regions, thereby weighting the loss to reduce incorrect supervision. To further enhance inter-class discriminability, we incorporate a Stretch Feature Loss (SFL) and an Exclusive Loss (EL), which respectively expand the subtle feature differences between classes and penalize low-conﬁdence predictions. Extensive experiments conducted on three datasets demonstrate that our approach not only outperforms state-of-the-art methods designed for sparse annotations but also surpasses fully supervised baselines across all annotation rates. Our method consistently achieves better performance for multiple cell classes, even when trained with as little as 10% of the annotations. These results indicate that our technique effectively mitigates the challenges associated with sparse annotations and holds signiﬁcant potential for reducing the annotation burden in clinical practice.
-![](img/method.png)
+In this work, we introduce a novel training paradigm tailored for robust multi-class cell detection in histological images under sparse annotation settings. While traditional fully supervised approaches demand exhaustive cell-level labels—an impractical requirement due to the high cellular density and diversity in such images—our framework overcomes this challenge through prototype-guided calibration.
+
+We propose a **Prototype-Calibrated Loss**, which leverages representative annotated features to recalibrate the loss contributions from unannotated regions. By computing a **Semantic Energy (SE)** that measures the affinity between unannotated and annotated cell features, we dynamically weight the training loss to mitigate label noise and incorrect supervision.
+
+To further enhance feature discrimination between cell classes, we introduce two auxiliary losses:
+- **Stretch Feature Loss (SFL):** Encourages greater inter-class separability by magnifying subtle feature differences.
+- **Exclusive Loss (EL):** Penalizes uncertain predictions and reinforces class exclusivity.
+
+Comprehensive evaluations on three benchmark datasets show that our method not only outperforms state-of-the-art techniques designed for sparse annotations but also consistently surpasses fully supervised baselines—across all annotation ratios. Even when trained with only 10% of the annotations, our model demonstrates superior generalization across diverse cell types, highlighting its clinical relevance in reducing annotation burdens.
+
+![Method Overview](img/method.png)
+
+---
+
+## Dependencies
+
+This implementation is based on the following key package:
+
+- `torch==1.7.1`
 
 
-
-## Dependecies
-In the environment configuration, we primarily utilize `torch==1.7.1`.
+---
 
 ## Usage
 
-### Data preparation
-Before training, you need to prepare the training images and ground truth. 
-Please see 'data_preprocess_heatmap.py' for more information
+### Data Preparation
 
+To begin training, you need to organize the dataset (training images and corresponding ground truth annotations).  
+Please refer to the script [`data_preprocess_heatmap.py`](./data_preprocess_heatmap.py) for data preprocessing guidelines.
 
-### Model training and test
-To training a model, set related parameters and run `python train.py`
+### Model Training and Evaluation
 
-To evaluate the trained model on the test set, set related parameters in the file `caculate_metric.py` and run `python test.py`. 
-
+- **Training**  
+  Configure the training parameters as needed, then execute the following command:  
+  ```bash
+  python train.py
+- **Evaluation**  
+  Configure the evaluation parameters as needed, then execute the following command:  
+  ```bash
+  python test.py
