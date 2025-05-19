@@ -24,7 +24,7 @@ Comprehensive evaluations on three benchmark datasets show that our method not o
 This implementation is based on the following key package:
 
 - `torch==1.7.1`
-Please refer to the `requirements.txt` file for the complete list of dependencies.
+- Please refer to the `requirements.txt` file for the complete list of dependencies.
 ---
 
 ## Usage
