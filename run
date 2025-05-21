@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -ex
+
+apt-get update && apt-get install -y libgl1
+
+
+# This is the master script for the capsule. When you click "Reproducible Run", the code in this file will execute.
+python -u train.py \
+    --img_dir /data/img_tumor/train \
+    --gt_dir /data/groud_truth_tumor_50/train \
+    --batch_size 8 \
+    --epoch 300 \
+    "$@"
